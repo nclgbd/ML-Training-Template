@@ -26,9 +26,10 @@ jobs:
         auto-update-conda: true
         auto-activate-base: false
         show-channel-urls: true
-    - name: Run import script
+    - name: Run build and test scripts
       shell: bash
       run: |
+        conda init bash
         conda activate torch_base
         bash build.sh
         python tests/test.py
