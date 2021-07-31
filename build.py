@@ -16,7 +16,7 @@ DIRS = []
                 
 def build(): 
     with open("parameters.json", "r") as f:
-        print("Loading parameters...")
+        print("Loading parameters...\n")
         params = dict(json.load(f))
         
         DATA_DIR = params["DATA_DIR"]
