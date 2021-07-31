@@ -23,10 +23,11 @@ jobs:
       with:
         python-version: 3.6
         environment-file: conda-envs/torch_base.yaml    # Path to the build conda environment
-        auto-update-conda: false
+        auto-update-conda: true
         auto-activate-base: false
         show-channel-urls: true
     - name: Run import script
+      shell: bash
       run: |
         conda activate torch_base
         bash build.sh
