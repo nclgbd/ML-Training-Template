@@ -29,7 +29,6 @@ jobs:
     - name: Run build and test scripts
       run: |
         echo $CONDA/bin >> $GITHUB_PATH
-        source ~/.bashrc
         conda activate test
         bash build.sh
         python tests/test.py
