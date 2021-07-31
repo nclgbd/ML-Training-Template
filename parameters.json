@@ -1,13 +1,12 @@
 {
-    "DATA_DIR": "data",
-    "TEST_DIR": "test_data",
-    "MODEL_DIR": "saved_models",
-    "MEDIA_DIR": "media",
-    "INC_DIR": "incorrect_images",
+    "DATA_DIR": "data/",
+    "TEST_DIR": "test_data/",
+    "MODEL_DIR": "saved_models/",
+    "MEDIA_DIR": "media/",
+    "INC_DIR": "incorrect_images/",
 
     "CLASSES": ["class1", "class2"],
     "N_SPLITS": 5,
-
     "model_name1": {
         "BATCH_SIZE": 16,
         "ETA": 0.0001,
