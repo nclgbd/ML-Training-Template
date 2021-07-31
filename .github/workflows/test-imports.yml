@@ -9,8 +9,11 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-and-test-env:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
     - uses: actions/checkout@v2
     - uses: iterative/setup-dvc@v1
@@ -21,6 +24,7 @@ jobs:
     - name: Conda environment creation and activation
       uses: conda-incubator/setup-miniconda@v2
       with:
+        activate-environment: torch_base
         python-version: 3.6
         environment-file: conda-envs/torch_base.yml    # Path to the build conda environment
         auto-update-conda: true
@@ -29,7 +33,7 @@ jobs:
     - name: Run build and test scripts
       run: |
         echo $CONDA/bin >> $GITHUB_PATH
-        conda activate test
+        conda activate torch_base
         bash build.sh
         python tests/test.py
 
