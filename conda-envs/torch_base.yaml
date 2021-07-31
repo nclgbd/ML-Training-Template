@@ -1,3 +1,4 @@
+name: torch_base
 channels:
   - pytorch
   - defaults
