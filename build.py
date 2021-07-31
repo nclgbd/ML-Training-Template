@@ -29,6 +29,7 @@ def build():
     
     for dirs in DIRS:
         clear_dirs(dirs)
+        print("Creating:", dirs)
         os.makedirs(dirs, exist_ok=True)
         
 
