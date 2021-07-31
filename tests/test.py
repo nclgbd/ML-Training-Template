@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch
 import os
+import sys
 import seaborn as sns
 import json
 
@@ -14,3 +15,5 @@ from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 
 from pytorch_vision_utils.Utilities import clear_dirs, time_to_predict, DataVisualizationUtilities, TrainingUtilities
+
+sys.exit(0)
