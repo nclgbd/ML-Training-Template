@@ -1,4 +1,4 @@
 ['remote "remote"']
-url = https://github.com/nclgbd/ML-Data-Configurations.git
+url = data/
 [core]
 remote = remote
