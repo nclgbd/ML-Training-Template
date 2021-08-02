@@ -3,9 +3,13 @@ name: Train Model
 
 on: [push]
 
+
 jobs:
   run:
     runs-on: [ubuntu-latest]
+    defaults:
+      run:
+        shell: bash -l {0}
     steps:
     - uses: actions/checkout@v2
     - uses: iterative/setup-cml@v1
@@ -32,7 +36,7 @@ jobs:
         conda activate torch_base
         ls -la
 
-    - name: cml
+    - name: Train and display results with `cml`
       env:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
       run: |
