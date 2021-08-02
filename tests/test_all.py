@@ -9,8 +9,7 @@ from subprocess import call
 
 
 build_tests = [build_test]
-# train_tests = [train_test]
-all_tests = [build_tests] # , train_tests]
+all_tests = [build_tests]
 for tests in all_tests:
     for test in tests:
         print("Running:", test.__name__)
