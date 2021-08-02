@@ -5,8 +5,8 @@ on: [push]
 
 
 jobs:
-  run:
-    runs-on: [ubuntu-latest]
+  train-model:
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash -l {0}
