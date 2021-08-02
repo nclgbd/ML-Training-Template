@@ -43,7 +43,7 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
         conda activate torch_base
         
-        ./build
+        source build.sh
         python -m pytorch_vision_utils.train --model_name="mobilenetv2" --debug="True"
         cat metrics.txt >> report.md
         cml-publish confusion_matrix.png --md --title 'confusion-matrix' >> report.md
