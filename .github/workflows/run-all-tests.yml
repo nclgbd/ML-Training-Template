@@ -6,7 +6,6 @@ name: Test Build Methods
 on:
   push:
   pull_request:
-    branches: [ main ]
 
 jobs:
   build-and-test-env:
@@ -17,10 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: iterative/setup-dvc@v1
-    - name: Set up Python 3.6
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.6
+
     - name: Conda environment creation and activation
       uses: conda-incubator/setup-miniconda@v2
       with:
@@ -30,10 +26,17 @@ jobs:
         auto-update-conda: true
         auto-activate-base: false
         show-channel-urls: true
+
+    - name: Install pip dependencies
+      run: |
+        echo $CONDA/bin >> $GITHUB_PATH
+        conda activate torch_base
+        python -m pip install --upgrade pip
+        pip install pytest
+
     - name: Run build and test scripts
       run: |
         echo $CONDA/bin >> $GITHUB_PATH
         conda activate torch_base
-        bash build.sh
-        python tests/test.py
-
+        ls -la
+        pytest
