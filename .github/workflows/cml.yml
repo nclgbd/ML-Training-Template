@@ -1,0 +1,47 @@
+  
+name: Train Model
+
+on: [push]
+
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    needs: build-and-test-env
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: iterative/setup-cml@v1
+
+    - name: Conda environment creation and activation
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: torch_base
+        python-version: 3.6
+        environment-file: conda-envs/torch_base.yml    # Path to the build conda environment
+        auto-update-conda: true
+        auto-activate-base: false
+        show-channel-urls: true
+
+    - name: Install pip dependencies
+      run: |
+        echo $CONDA/bin >> $GITHUB_PATH
+        conda activate torch_base
+        python -m pip install --upgrade pip
+
+    - name: Run build and test scripts
+      run: |
+        echo $CONDA/bin >> $GITHUB_PATH
+        conda activate torch_base
+        ls -la
+
+    - name: cml
+      env:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo $CONDA/bin >> $GITHUB_PATH
+        conda activate torch_base
+        
+        train.sh
+        cat metrics.txt >> report.md
+        cml-publish confusion_matrix.png --md --title 'confusion-matrix' >> report.md
+        cml-send-comment report.md 
