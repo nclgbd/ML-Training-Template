@@ -107,5 +107,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-data/
+data/cats
+data/dogs
 data.zip
