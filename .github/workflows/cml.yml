@@ -13,6 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: iterative/setup-cml@v1
+    - uses: iterative/setup-dvc@v1
 
     - name: Conda environment creation and activation
       uses: conda-incubator/setup-miniconda@v2
