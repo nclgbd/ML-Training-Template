@@ -49,6 +49,7 @@ jobs:
         dvc get https://github.com/nclgbd/ML-Data-Configurations.git data/data.zip -o data/
         dvc pull
         unzip data/data.zip
+        rm -rf data/data.zip
 
         python -m pytorch_vision_utils.train --model_name="mobilenetv2" --debug="True" --parameters_path "parameters.json"
         cat metrics.txt >> report.md
