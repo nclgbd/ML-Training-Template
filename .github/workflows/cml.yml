@@ -46,7 +46,7 @@ jobs:
         
         python build.py
 
-        dvc get https://github.com/nclgbd/ML-Data-Configurations.git data/data.zip -o data/
+        dvc get https://github.com/nclgbd/ML-Data-Configurations.git data/data.zip -o 
         dvc pull
         unzip data/data.zip
         rm -rf data/data.zip
