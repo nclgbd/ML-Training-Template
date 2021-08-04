@@ -50,7 +50,7 @@ jobs:
         dvc pull
         unzip data/data.zip
 
-        python -m pytorch_vision_utils.train --model_name="mobilenetv2" --debug="True"
+        python -m pytorch_vision_utils.train --model_name="mobilenetv2" --debug="True" --parameters_path "parameters.json"
         cat metrics.txt >> report.md
         cml-publish confusion_matrix.png --md --title 'confusion-matrix' >> report.md
         cml-send-comment report.md 
