@@ -11,39 +11,10 @@ on:
 jobs:
   build-and-test-env:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash -l {0}
+    container: 
+      image: ubuntu:latest
     steps:
     - uses: actions/checkout@v2
     - uses: iterative/setup-dvc@v1
-
-    - name: Conda environment creation and activation
-      uses: conda-incubator/setup-miniconda@v2
-      with:
-        activate-environment: torch_base
-        python-version: 3.6
-        environment-file: conda-envs/torch_base.yml    # Path to the build conda environment
-        auto-update-conda: true
-        auto-activate-base: false
-        show-channel-urls: true
-
-    - name: Install pip dependencies
-      run: |
-        echo $CONDA/bin >> $GITHUB_PATH
-        conda activate torch_base
-        python -m pip install --upgrade pip
-        pip install pytest
-
     - name: Run build and test scripts
-      run: |
-        echo $CONDA/bin >> $GITHUB_PATH
-        conda activate torch_base
-        ls -la
-
-        dvc get https://github.com/nclgbd/ML-Data-Configurations.git data/data.zip -o 
-        dvc pull
-        unzip data.zip -d data/
-        rm -rf data.zip
-
-        pytest -v -s
+      run: bash scripts/run-all-tests.sh
