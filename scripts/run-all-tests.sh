@@ -1,11 +1,9 @@
 #!/bin/bash
-echo "$CONDA/bin" >> "$GITHUB_PATH"
-conda activate torch_base
 ls -la
 
-dvc get https://github.com/nclgbd/ML-Data-Configurations.git data/data.zip -o 
+dvc get https://github.com/nclgbd/ML-Data-Configurations.git test_data/test_data.zip -o 
 dvc pull
-unzip data.zip -d data/
-rm -rf data.zip
+unzip test_data.zip -d test_data/
+rm -rf test_data.zip
 
 pytest -v -s
