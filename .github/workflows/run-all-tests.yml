@@ -12,7 +12,7 @@ jobs:
   build-and-test-env:
     runs-on: ubuntu-latest
     container: 
-      image: ubuntu:latest
+      image: nclgbd/torchbase:latest
 
     steps:
     - uses: actions/checkout@v2
