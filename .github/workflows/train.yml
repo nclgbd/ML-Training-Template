@@ -26,7 +26,7 @@ jobs:
         mkdir -p media/ incorrect_images/ saved_models/
         ls -a
         conda activate torch_base
-        python -m pytorch_vision_utils.train --model_name "mobilenetv2" --parameters_path "parameters.json" --debug "True"
+        python -m pytorch_vision_utils.train --model_name "mobilenetv2" --parameters_path "parameters.json" --debug "False"
         zip -r media_mobilenetv2.zip media
     # Saving artifacts
     - name: Save mobilenetv2 model
@@ -57,7 +57,7 @@ jobs:
         mkdir -p media/ incorrect_images/ saved_models/
         ls -a
         conda activate torch_base
-        python -m pytorch_vision_utils.train --model_name "xception" --parameters_path "parameters.json" --debug "True"
+        python -m pytorch_vision_utils.train --model_name "xception" --parameters_path "parameters.json" --debug "False"
         zip -r media_xception.zip media
     # Saving artifacts
     - name: Save xception model
