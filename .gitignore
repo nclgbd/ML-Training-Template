@@ -110,3 +110,6 @@ dmypy.json
 data/
 train/
 validation/
+media/
+incorrect_images/
+saved_models/

@@ -2,3 +2,6 @@ data/
 test_data/
 train/
 validation/
+media/
+incorrect_images/
+saved_models/
