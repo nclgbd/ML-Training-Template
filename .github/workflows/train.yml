@@ -1,0 +1,74 @@
+# This workflow will install Python dependencies and run tests
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Train Models
+
+on:
+  push:
+  pull_request: 
+    types: [master]
+
+jobs:
+  # Trains the mobilenetv2 model
+  train-mobilenetv2:
+    runs-on: ubuntu-latest
+    container: 
+      image: nclgbd/mltraindev:develop
+      credentials:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}       
+    steps:
+    - uses: actions/checkout@v2
+    - uses: iterative/setup-dvc@v1
+    - name: Run test scripts
+      shell: bash -l {0}
+      run: |
+        mkdir -p media/ incorrect_images/ saved_models/
+        ls -a
+        conda activate torch_base
+        python -m pytorch_vision_utils.train --model_name "mobilenetv2" --parameters_path "parameters.json" --debug "True"
+        zip -r media_mobilenetv2.zip media
+    # Saving artifacts
+    - name: Save mobilenetv2 model
+      uses: actions/upload-artifact@v2
+      with:
+        name: mobilenetv2
+        path: saved_models/mobilenetv2.pth
+    - name: Save mobilenetv2 report
+      uses: actions/upload-artifact@v2
+      with:
+        name: mobilenetv2_report
+        path: media_mobilenetv2.zip
+
+  # Trains the xception model
+  train-xception:
+    runs-on: ubuntu-latest
+    container: 
+      image: nclgbd/mltraindev:develop
+      credentials:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}       
+    steps:
+    - uses: actions/checkout@v2
+    - uses: iterative/setup-dvc@v1
+    - name: Run test scripts
+      shell: bash -l {0}
+      run: |
+        mkdir -p media/ incorrect_images/ saved_models/
+        ls -a
+        conda activate torch_base
+        python -m pytorch_vision_utils.train --model_name "xception" --parameters_path "parameters.json" --debug "True"
+        zip -r media_xception.zip media
+    # Saving artifacts
+    - name: Save xception model
+      uses: actions/upload-artifact@v2
+      with:
+        name: xception
+        path: saved_models/xception.pth
+    - name: Save xception report
+      uses: actions/upload-artifact@v2
+      with:
+        name: xception_report
+        path: media_xception.zip
+  
+        
