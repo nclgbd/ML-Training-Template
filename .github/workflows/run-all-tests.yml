@@ -13,9 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: nclgbd/mltraindev:develop
-      # credentials:
-      #   username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      #   password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - uses: iterative/setup-dvc@v1
@@ -30,8 +27,7 @@ jobs:
         rm -f data.zip
         rm -rf data/train
         rm -rf data/validation
-    - name: Train model
-    - name: Run test scripts
+    - name: Run tests
       shell: bash -l {0}
       run: |
         mkdir -p media/ incorrect_images/ saved_models/
