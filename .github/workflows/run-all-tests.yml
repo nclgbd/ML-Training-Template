@@ -6,16 +6,16 @@ name: Test Build Methods
 on:
   push:
   pull_request:
-    types: [master]
+    types: [opened]
 
 jobs:
   build-and-test-env:
     runs-on: ubuntu-latest
-    container: 
+    container:
       image: nclgbd/mltraindev:develop
       credentials:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}       
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}   
     steps:
     - uses: actions/checkout@v2
     - uses: iterative/setup-dvc@v1

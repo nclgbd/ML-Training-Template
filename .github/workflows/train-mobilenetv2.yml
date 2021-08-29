@@ -3,7 +3,7 @@ name: Train Mobilenet V2
 on:
   push:
   pull_request: 
-    types: [develop]
+    types: [opened]
 
 jobs:
   

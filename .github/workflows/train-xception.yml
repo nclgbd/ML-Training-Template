@@ -3,7 +3,7 @@ name: Train Xception
 on:
   push:
   pull_request: 
-    types: [develop]
+    types: [opened]
 
 jobs:
   
