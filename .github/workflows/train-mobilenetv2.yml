@@ -17,7 +17,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: iterative/setup-dvc@v1
-    - name: Run test scripts
+    - name: Setup env
+      run: |
+        dvc get https://github.com/iterative/dataset-registry tutorials/versioning/data.zip
+        unzip data.zip
+        mv data/train .
+        mv data/validation .
+
+        # Remove the directories since they're not needed anymore
+        rm -f data.zip
+        rm -rf data/train
+        rm -rf data/validation
+    - name: Train model
       shell: bash -l {0}
       run: |
         mkdir -p media/ incorrect_images/ saved_models/
