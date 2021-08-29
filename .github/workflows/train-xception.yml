@@ -3,10 +3,10 @@ name: Train Xception
 on:
   push:
   pull_request: 
-    types: [master]
+    types: [develop]
 
 jobs:
-  # Trains the xception model
+  
   train-xception:
     runs-on: ubuntu-latest
     container: 
@@ -25,7 +25,7 @@ jobs:
         conda activate torch_base
         python -m pytorch_vision_utils.train --model_name "xception" --parameters_path "parameters.json" --debug "False"
         zip -r media_xception.zip media
-    # Saving artifacts
+    
     - name: Save xception model
       uses: actions/upload-artifact@v2
       with:

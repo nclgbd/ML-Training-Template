@@ -3,10 +3,10 @@ name: Train Mobilenet V2
 on:
   push:
   pull_request: 
-    types: [master]
+    types: [develop]
 
 jobs:
-  # Trains the mobilenetv2 model
+  
   train-mobilenetv2:
     runs-on: ubuntu-latest
     container: 
@@ -25,7 +25,7 @@ jobs:
         conda activate torch_base
         python -m pytorch_vision_utils.train --model_name "mobilenetv2" --parameters_path "parameters.json" --debug "False"
         zip -r media_mobilenetv2.zip media
-    # Saving artifacts
+    
     - name: Save mobilenetv2 model
       uses: actions/upload-artifact@v2
       with:

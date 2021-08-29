@@ -6,6 +6,7 @@ name: Test Build Methods
 on:
   push:
   pull_request:
+    types: [master]
 
 jobs:
   build-and-test-env:
