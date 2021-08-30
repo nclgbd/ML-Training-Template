@@ -1,8 +1,9 @@
 name: Train Xception
 
 on:
-  push:
-    [train]
+  push: 
+    branches:
+      [train]
 
 jobs:
   

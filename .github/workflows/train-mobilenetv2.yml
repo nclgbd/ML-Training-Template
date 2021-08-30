@@ -2,7 +2,8 @@ name: Train Mobilenet V2
 
 on:
   push:
-    [train]
+    branches:
+      [train]
 
 jobs:
   
