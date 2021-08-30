@@ -2,12 +2,10 @@ name: Train Xception
 
 on:
   push:
-  pull_request: 
-    types: [opened]
 
 jobs:
   
-  train-xception:
+  train:
     runs-on: ubuntu-latest
     container: 
       image: nclgbd/mltraindev:develop
@@ -28,19 +26,17 @@ jobs:
     - name: Train model
       shell: bash -l {0}
       run: |
-        mkdir -p media/ incorrect_images/ saved_models/
+        mkdir -p media/ incorrect_images/ saved_models/ artifacts/
         ls -a
         conda activate torch_base
         python -m pytorch_vision_utils.train --model_name "xception" --parameters_path "parameters.json" --debug "False"
-        zip -r media_xception.zip media
+
+        mv media artifacts/
+        mv saved_models/xception.pth artifacts/
     
-    - name: Save xception model
+    # Save artifacts
+    - name: Save artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: xception
-        path: saved_models/xception.pth
-    - name: Save xception report
-      uses: actions/upload-artifact@v2
-      with:
-        name: xception_report
-        path: media_xception.zip
+        name: xception_artifacts
+        path: artifacts/
