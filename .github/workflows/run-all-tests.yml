@@ -6,37 +6,31 @@ name: Test Build Methods
 on:
   push:
   pull_request:
+    types: [opened]
 
 jobs:
   build-and-test-env:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash -l {0}
+    container:
+      image: nclgbd/mltraindev:develop
     steps:
     - uses: actions/checkout@v2
     - uses: iterative/setup-dvc@v1
-
-    - name: Conda environment creation and activation
-      uses: conda-incubator/setup-miniconda@v2
-      with:
-        activate-environment: torch_base
-        python-version: 3.6
-        environment-file: conda-envs/torch_base.yml    # Path to the build conda environment
-        auto-update-conda: true
-        auto-activate-base: false
-        show-channel-urls: true
-
-    - name: Install pip dependencies
+    - name: Setup env
       run: |
-        echo $CONDA/bin >> $GITHUB_PATH
-        conda activate torch_base
-        python -m pip install --upgrade pip
-        pip install pytest
+        dvc get https://github.com/iterative/dataset-registry tutorials/versioning/data.zip
+        unzip data.zip
+        mv data/train .
+        mv data/validation .
 
-    - name: Run build and test scripts
+        # Remove the directories since they're not needed anymore
+        rm -f data.zip
+        rm -rf data/train
+        rm -rf data/validation
+    - name: Run tests
+      shell: bash -l {0}
       run: |
-        echo $CONDA/bin >> $GITHUB_PATH
+        mkdir -p media/ incorrect_images/ saved_models/
         conda activate torch_base
         ls -la
-        pytest
+        pytest -v -s

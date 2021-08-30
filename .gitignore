@@ -107,4 +107,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-data/data.zip
+data/
+train/
+validation/
+media/
+incorrect_images/
+saved_models/

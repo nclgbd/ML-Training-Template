@@ -1,0 +1,42 @@
+name: Train Xception
+
+on:
+  push:
+
+jobs:
+  
+  train:
+    runs-on: ubuntu-latest
+    container: 
+      image: nclgbd/mltraindev:develop
+    steps:
+    - uses: actions/checkout@v2
+    - uses: iterative/setup-dvc@v1
+    - name: Setup env
+      run: |
+        dvc get https://github.com/iterative/dataset-registry tutorials/versioning/data.zip
+        unzip data.zip
+        mv data/train .
+        mv data/validation .
+
+        # Remove the directories since they're not needed anymore
+        rm -f data.zip
+        rm -rf data/train
+        rm -rf data/validation
+    - name: Train model
+      shell: bash -l {0}
+      run: |
+        mkdir -p media/ incorrect_images/ saved_models/ artifacts/
+        ls -a
+        conda activate torch_base
+        python -m pytorch_vision_utils.train --model_name "xception" --parameters_path "parameters.json" --debug "False"
+
+        mv media artifacts/
+        mv saved_models/xception.pth artifacts/
+    
+    # Save artifacts
+    - name: Save artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: xception_artifacts
+        path: artifacts/
