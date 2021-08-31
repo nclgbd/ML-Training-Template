@@ -32,10 +32,11 @@ jobs:
         ls -a
         conda activate torch_base
         python -m pytorch_vision_utils.train --model_name "xception" --parameters_path "parameters.json" --debug "False"
-
+    # Moving artifacts
+    - name: Move artifacts
         mv media artifacts/
-        mv saved_models/xception.pth artifacts/
-    
+        mv saved_models/mobilenetv2.pth artifacts/
+        mv incorrect_images/ artifacts
     # Save artifacts
     - name: Save artifacts
       uses: actions/upload-artifact@v2
