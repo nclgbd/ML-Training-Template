@@ -2,6 +2,8 @@ name: Train Mobilenet V2
 
 on:
   push:
+    branches:
+      [train]
 
 jobs:
   
@@ -24,19 +26,23 @@ jobs:
         rm -rf data/train
         rm -rf data/validation
     - name: Train model
+      id: train_mobilenetv2
       shell: bash -l {0}
       run: |
         mkdir -p media/ incorrect_images/ saved_models/ artifacts/
         ls -a
         conda activate torch_base
+        echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
         python -m pytorch_vision_utils.train --model_name "mobilenetv2" --parameters_path "parameters.json" --debug "False"
-
+    # Moving artifacts
+    - name: Move artifacts
+      run: |
         mv media artifacts/
         mv saved_models/mobilenetv2.pth artifacts/
-
+        mv incorrect_images/ artifacts
     # Save artifacts 
     - name: Save artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: mobilenetv2_artifacts
+        name: mobilenetv2_${{ steps.train_mobilenetv2.outputs.sha_short }}
         path: artifacts/
