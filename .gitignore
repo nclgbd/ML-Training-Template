@@ -113,3 +113,4 @@ validation/
 media/
 incorrect_images/
 saved_models/
+scripts/runner_setup.sh
