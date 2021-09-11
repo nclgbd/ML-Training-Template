@@ -5,7 +5,7 @@
     "MEDIA_DIR": "./media/",
     "INC_DIR": "./incorrect_images/",
     "CLASSES": ["cats", "dogs"],
-    "N_SPLITS": 5,
+    "N_SPLITS": 2,
     "mobilenetv2": {
         "BATCH_SIZE": 64,
         "ETA": 0.001,
