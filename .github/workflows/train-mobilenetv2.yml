@@ -16,16 +16,15 @@ jobs:
     - uses: iterative/setup-dvc@v1
     - name: Setup env
       run: |
-        ./scripts/build.sh
-        # dvc get https://github.com/iterative/dataset-registry tutorials/versioning/data.zip
-        # unzip data.zip
-        # mv data/train .
-        # mv data/validation .
+        dvc get https://github.com/iterative/dataset-registry tutorials/versioning/data.zip
+        unzip data.zip
+        mv data/train .
+        mv data/validation .
 
-        # # Remove the directories since they're not needed anymore
-        # rm -f data.zip
-        # rm -rf data/train
-        # rm -rf data/validation
+        # Remove the directories since they're not needed anymore
+        rm -f data.zip
+        rm -rf data/train
+        rm -rf data/validation
     - name: Train model
       id: train_mobilenetv2
       shell: bash -l {0}
