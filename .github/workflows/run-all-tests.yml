@@ -20,7 +20,7 @@ jobs:
     - name: Setup env
       shell: bash -l {0}
       run: |
-        ./scripts/build.sh
+        bash scripts/build.sh
         # dvc get https://github.com/iterative/dataset-registry tutorials/versioning/data.zip
         # unzip data.zip
         # mv data/train .
