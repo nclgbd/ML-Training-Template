@@ -3,7 +3,7 @@ name: Train Xception
 on:
   push: 
     branches:
-      [train]
+      [train, xception]
 
 jobs:
   

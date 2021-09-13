@@ -1,9 +1,9 @@
-name: Train inceptionv4
+name: Train Inception V4
 
 on:
   push: 
     branches:
-      [train]
+      [train, inceptionv4]
 
 jobs:
   
