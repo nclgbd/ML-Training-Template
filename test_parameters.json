@@ -1,5 +1,5 @@
 {
-    "DATA_DIR": "./train/",
+    "DATA_DIR": "./validation/",
     "TEST_DIR": "./validation/",
     "MODEL_DIR": "./saved_models/",
     "MEDIA_DIR": "./media/",
